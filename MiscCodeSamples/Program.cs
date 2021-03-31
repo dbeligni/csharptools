@@ -7,7 +7,7 @@ namespace MiscCodeSamples
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello BoatLoadOptimizer!");
         }
     }
     public class BoatLoadOptimizer
@@ -23,32 +23,48 @@ namespace MiscCodeSamples
 
         public int[] GetBoatWeights()
         {
-            var peopleWeight = new List<int>(_peopleWeights);
-            peopleWeight.Sort();
-            peopleWeight.Reverse();
-            var boatWeight = new int[_availableBoats];
+            List<int> descOrderWeights = GetWeightInDescendingOrder();
+            int[] boatWeight = DistributeLoadOnAvailableBoats(descOrderWeights);
 
-            foreach ( var weight in peopleWeight)
-            {
-                int lessLoadedBoatIdex = GetMinimumWeightIndex(boatWeight);
-                boatWeight[lessLoadedBoatIdex] += weight;
-            }
-            
             return boatWeight;
 
         }
 
+        private int[] DistributeLoadOnAvailableBoats(List<int> descSortedWeights)
+        {
+            var boatWeight = new int[_availableBoats];
+            DistributeWeightOnLessLoadedBoats(descSortedWeights, boatWeight);
+            return boatWeight;
+        }
+
+        private static void DistributeWeightOnLessLoadedBoats(List<int> descSortedWeights, int[] boatWeight)
+        {
+            foreach (var weight in descSortedWeights)
+            {
+                int lessLoadedBoatIdex = GetMinimumWeightIndex(boatWeight);
+                boatWeight[lessLoadedBoatIdex] += weight;
+            }
+        }
+
+        private List<int> GetWeightInDescendingOrder()
+        {
+            var peopleWeight = new List<int>(_peopleWeights);
+            peopleWeight.Sort();
+            peopleWeight.Reverse();
+            return peopleWeight;
+        }
+
         public static int GetMinimumWeightIndex(int[] list)
         {
-            var minIndex = 0;
+            var minValueIndex = 0;
             for(int i =0; i < list.Length; i++)
             {
-                if(list[minIndex] > list[i])
+                if(list[minValueIndex] > list[i])
                 {
-                    minIndex = i;
+                    minValueIndex = i;
                 }
             }
-            return minIndex;
+            return minValueIndex;
 {}
         }
     }
