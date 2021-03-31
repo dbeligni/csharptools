@@ -17,11 +17,11 @@ namespace MiscCodeSamples
 
         public BoatLoadOptimizer(int availableBoats, int[] peopleWeights)
         {
-            this._availableBoats = availableBoats;
+            _availableBoats = availableBoats;
             _peopleWeights = peopleWeights;
         }
 
-        public int[] GetBoatWeights()
+        public int[] GetBalancedBoatWeights()
         {
             List<int> descOrderWeights = GetWeightInDescendingOrder();
             int[] boatWeight = DistributeLoadOnAvailableBoats(descOrderWeights);

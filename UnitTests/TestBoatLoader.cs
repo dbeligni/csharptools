@@ -10,7 +10,7 @@ namespace UnitTests
         public void TestSplitOnTwoBoat()
         {
             var loader = new BoatLoadOptimizer(2, new int[] { 25, 30, 65, 55 });
-            var split = loader.GetBoatWeights();
+            var split = loader.GetBalancedBoatWeights();
             Assert.AreEqual(90, split[0]);
             Assert.AreEqual(85, split[1]);
         }
@@ -19,7 +19,7 @@ namespace UnitTests
         public void TestSplitOnThreeBoat()
         {
             var loader = new BoatLoadOptimizer(3, new int[] { 25, 30, 65, 55 });
-            var split = loader.GetBoatWeights();
+            var split = loader.GetBalancedBoatWeights();
             Assert.AreEqual(65, split[0]);
             Assert.AreEqual(55, split[1]);
             Assert.AreEqual(55, split[1]);
