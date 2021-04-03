@@ -73,6 +73,6 @@ class Solution
 
         long result = Result.getMinCost(crew_id, job_id);
 
-        if(expectedMin != result) throw new Exception(string.Format("Expected min cost is result: {0}, found {1}  ", expectedMin, result ));        
+        if(expectedMin != result) throw new Exception(string.Format("Expected min cost is: {0}, found {1}  ", expectedMin, result ));        
     }
 }
