@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 
 class Result
 {
@@ -50,11 +51,11 @@ class Result
     
     public static int PrevCrewAvailableFor(int job_id, List<int> sortedCrews, List<int> allocatedCrews){
         var foundCrew = -1;
-        for(int i = sortedCrews.Count -1; i >= 0; i --){
-            int v = sortedCrews[i];
-            if (v < job_id && !allocatedCrews.Contains(v)) return v;
+        var query =  sortedCrews.Where(c => c < job_id && !allocatedCrews.Contains(c));
+        if(query.Count() > 0){
+            foundCrew = query.Max();
         }
-        return foundCrew;        
+        return foundCrew;         
     }
 
 }
