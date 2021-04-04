@@ -50,6 +50,7 @@ namespace BinaryGap
             return prefix;
         }
 
+        /// https://codility.com/media/train/3-PrefixSums.pdf
         private static int GetMaxMushrooms(int start, int moves, List<int> mushrooms){
             int max = 0;
             List<int> prefix = GetPrefixSumFor(mushrooms);
