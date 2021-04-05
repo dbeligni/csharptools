@@ -20,6 +20,32 @@ namespace BinaryGap
             var max1 = GetMaxMushrooms(6, 6, mushrooms);
             var maxMiddle = GetMaxMushrooms(4, 6, mushrooms);
             if(max0 != 30 && max1 != 30 && maxMiddle != 25) throw new ApplicationException(string.Format("Wrong result for Mushroom tests. {0} {1} {2}", max0, max1, maxMiddle));
+
+
+            int[][] testMatrixForHourGlass = new int[][]
+                {
+                    new int[]{-9, -9, -9,  1, 1, 1},
+                    new int[]{ 0, -9,  0,  4, 3, 2},
+                    new int[]{-9, -9, -9,  1, 2, 3},
+                    new int[]{ 0,  0,  8,  6, 6, 0},
+                    new int[]{ 0,  0,  -2,  0, 0, 0},
+                    new int[]{ 0,  0,  1,  2, 4, 0}
+                };
+
+            int[][] testMatrixForHourGlassTest7 = new int[][]
+                {
+                    new int[]{0, -4, -6, 0, -7, -6},
+                    new int[]{-1, -2, -6, -8, -3, -1},
+                    new int[]{-8, -4, -2, -8, -8, -6},
+                    new int[]{ -3, -1, -2, -5, -7, -4},
+                    new int[]{-3, -5, -3, -6, -6, -6},
+                    new int[]{ -3, -6, 0, -8, -6, -7}
+                };
+            var sumHg = hourglassSum(testMatrixForHourGlassTest7);
+            if(sumHg != -19 ) throw new ApplicationException(string.Format("Wrong result for HourGlss test: {0}", sumHg));
+
+           
+            
         }
 
         /// https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
@@ -70,6 +96,37 @@ namespace BinaryGap
             if( left == 0) return prefix[right];
             else return prefix[right] - prefix[left -1];
 
+        }
+
+        // Complete the hourglassSum function below.
+        static int hourglassSum(int[][] arr)
+        {
+            int SIZE = 3;
+            int max = int.MinValue;
+            if (arr.Count() != SIZE * 2) return 0;
+            for (int xOff = 0; xOff <= SIZE; xOff++)
+            {
+                for (int yOff = 0; yOff <= SIZE; yOff++)
+                {
+                    var hgSum = GetHourGlassSum(xOff, yOff, arr, SIZE);
+                    max = Math.Max(max, hgSum);
+                }
+            }
+            return max;
+        }
+
+        private static int GetHourGlassSum(int xOff, int yOff, int[][] arr, int size)
+        {
+            var sum = 0;
+            for (int x = xOff; x < xOff + size; x++)
+            {
+                for (int y = yOff; y < yOff + size; y++)
+                {
+                    if (x == xOff + 1 && (y == yOff || y == yOff + 2)) continue;
+                    sum += arr[x][y];
+                }
+            }
+            return sum;
         }
     }
 }
